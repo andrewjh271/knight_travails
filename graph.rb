@@ -32,12 +32,12 @@ class Graph
     @adj_list[finish_vertex] << start_vertex
   end
 
-  def visited(coordinates)
+  def explored(coordinates)
     index = Vertex.to_index(coordinates)
     @vertex_list[index].found_edges = true
   end
 
-  def visited?(coordinates)
+  def explored?(coordinates)
     index = Vertex.to_index(coordinates)
     return false unless @vertex_list[index]
 
@@ -57,12 +57,15 @@ class Graph
         next if vertex.was_visited
         temp_path = current_path.clone
         temp_path << vertex
-        return temp_path if vertex == target
-
+        if vertex == target
+          reset
+          return temp_path 
+        end
         @queue << temp_path
         vertex.was_visited = true
       end
     end
+    reset
     "No path found."
   end
 
@@ -78,5 +81,12 @@ class Graph
     print "Vertex list: "
     @vertex_list.each { |vertex| print "#{vertex.to_s}, " }
     puts "(#{@vertex_list.length} vertices)"
+  end
+
+  private
+
+  def reset
+    @queue = []
+    @vertex_list.each { |vertex| vertex.was_visited = false }
   end
 end

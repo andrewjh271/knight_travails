@@ -20,6 +20,7 @@ class Vertex
     @found_edges = false
   end
 
+  # chess notation
   def to_s
     (coordinates[0] + 97).chr + (BOARD_SIZE - coordinates[1]).to_s
   end
