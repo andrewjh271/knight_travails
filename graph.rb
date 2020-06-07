@@ -1,4 +1,4 @@
-# frozen_string_literals: true
+# frozen_string_literal: true
 
 require_relative 'vertex'
 require 'pry'
@@ -16,6 +16,7 @@ class Graph
   def add_vertex(coordinates)
     index = Vertex.to_index(coordinates)
     return false if @vertex_list[index]
+
     vertex = Vertex.new(coordinates)
     @vertex_list[index] = vertex
     @adj_list[vertex] = []
@@ -39,9 +40,11 @@ class Graph
   def visited?(coordinates)
     index = Vertex.to_index(coordinates)
     return false unless @vertex_list[index]
+
     @vertex_list[index].found_edges
   end
 
+  # breadth-first search that keeps track of paths and returns once target vertex is found
   def bfs(start, target)
     target = @vertex_list[Vertex.to_index(target)]
     current = @vertex_list[Vertex.to_index(start)]
@@ -51,7 +54,6 @@ class Graph
       current_path = @queue.shift
       current = current_path.last
       @adj_list[current].each do |vertex|
-        # binding.pry
         next if vertex.was_visited
         temp_path = current_path.clone
         temp_path << vertex
@@ -61,7 +63,7 @@ class Graph
         vertex.was_visited = true
       end
     end
-    return "No path found."
+    "No path found."
   end
 
   def display_adj_list
@@ -74,7 +76,7 @@ class Graph
 
   def display_vertex_list
     print "Vertex list: "
-    @vertex_list.each { |vertex| print "#{vertex.to_s}, "}
-    puts
+    @vertex_list.each { |vertex| print "#{vertex.to_s}, " }
+    puts "(#{@vertex_list.length} vertices)"
   end
 end

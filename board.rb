@@ -1,4 +1,4 @@
-# frozen_string_literals: true
+# frozen_string_literal: true
 
 require_relative 'graph'
 require_relative 'knight'
@@ -13,7 +13,7 @@ class Board
     @graph = Graph.new
   end
 
-  def add_knight(square)
+  def add_knight(square = [0, 0])
     @graph.add_vertex(square)
     return if @graph.visited?(square)
     @graph.visited(square)
