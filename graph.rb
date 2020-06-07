@@ -3,6 +3,7 @@
 require_relative 'vertex'
 require 'pry'
 
+# Graph with modified breadth-first search to display path to target vertex
 class Graph
   # attr_accessor :adj_list
 
@@ -13,17 +14,32 @@ class Graph
   end
 
   def add_vertex(coordinates)
+    index = Vertex.to_index(coordinates)
+    return false if @vertex_list[index]
     vertex = Vertex.new(coordinates)
-    @vertex_list[Vertex.to_index(coordinates)] = vertex
+    @vertex_list[index] = vertex
     @adj_list[vertex] = []
   end
 
   def add_edge(start, finish)
+    # binding.pry
     start_vertex = @vertex_list[Vertex.to_index(start)]
     finish_vertex = @vertex_list[Vertex.to_index(finish)]
+    return false if @adj_list[start_vertex].include? finish_vertex
+
     @adj_list[start_vertex] << finish_vertex
     @adj_list[finish_vertex] << start_vertex
-    
+  end
+
+  def visited(coordinates)
+    index = Vertex.to_index(coordinates)
+    @vertex_list[index].found_edges = true
+  end
+
+  def visited?(coordinates)
+    index = Vertex.to_index(coordinates)
+    return false unless @vertex_list[index]
+    @vertex_list[index].found_edges
   end
 
   def bfs(start, target)

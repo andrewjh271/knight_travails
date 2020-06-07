@@ -1,7 +1,7 @@
 class Vertex
-  attr_accessor :coordinates, :was_visited
+  attr_accessor :coordinates, :was_visited, :found_edges
 
-  BOARD_SIZE = 3
+  BOARD_SIZE = 8
 
   def self.to_index(arr)
     arr[0] * BOARD_SIZE + arr[1]
@@ -14,6 +14,7 @@ class Vertex
   def initialize(coordinates)
     @coordinates = coordinates
     @was_visited = false
+    @found_edges = false
   end
 
   def notation
