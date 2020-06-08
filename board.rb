@@ -20,16 +20,6 @@ class Board
     display_path(path)
   end
 
-  def display_path(path)
-    s = path.length > 2 ? 's' : ''
-    puts "You made it in #{path.length - 1} move#{s}! Here is your path:"
-    path.each do |square|
-      print square.to_s
-      print ' --> ' unless square == path.last
-    end
-    puts
-  end
-
   def add_knight(square = [0, 0])
     return if @graph.explored?(square)
 
@@ -64,5 +54,15 @@ class Board
     moves.reject do |move|
       move[0].negative? || move[0] > MAX || move[1].negative? || move[1] > MAX
     end
+  end
+
+  def display_path(path)
+    s = path.length > 2 ? 's' : ''
+    puts "You made it in #{path.length - 1} move#{s}! Here is your path:"
+    path.each do |square|
+      print square.to_s
+      print ' --> ' unless square == path.last
+    end
+    puts
   end
 end
