@@ -53,7 +53,7 @@ class Graph
       @adj_list[current].each do |vertex|
         next if vertex.was_visited
 
-        new_path = current_path.clone << vertex
+        new_path = current_path + [vertex]
         if vertex == target
           reset
           return new_path

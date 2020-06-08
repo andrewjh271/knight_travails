@@ -31,9 +31,7 @@ class Board
   private
 
   def valid_moves(moves)
-    moves.reject do |move|
-      move[0].negative? || move[0] > MAX || move[1].negative? || move[1] > MAX
-    end
+    moves.select { |move| move[0].between?(0, MAX) && move[1].between?(0, MAX) }
   end
 
   def display_path(path)
