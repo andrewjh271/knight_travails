@@ -21,7 +21,8 @@ class Board
   end
 
   def display_path(path)
-    puts "You made it in #{path.length - 1} moves! Here is your path:"
+    s = path.length > 2 ? 's' : ''
+    puts "You made it in #{path.length - 1} move#{s}! Here is your path:"
     path.each do |square|
       print square.to_s
       print ' --> ' unless square == path.last

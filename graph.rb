@@ -62,22 +62,27 @@ class Graph
         vertex.was_visited = true
       end
     end
-    reset
-    'No path found.'
   end
 
   def display_adj_list
+    puts 'Adjacency list:'
     @adj_list.each do |k, v|
       print "#{k} => "
-      v.each { |vertex| print "#{vertex}, " }
+      v.each do |vertex|
+        print vertex.to_s
+        print ', ' unless vertex == v.last
+      end
       puts
     end
   end
 
   def display_vertex_list
     print 'Vertex list: '
-    @vertex_list.each { |vertex| print "#{vertex}, " }
-    puts "(#{@vertex_list.length} vertices)"
+    @vertex_list.each do |vertex|
+      print vertex.to_s
+      print ', ' unless vertex == @vertex_list.last
+    end
+    puts " (#{@vertex_list.length} vertices)"
   end
 
   private
