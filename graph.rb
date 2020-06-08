@@ -5,8 +5,6 @@ require 'pry'
 
 # Graph with modified breadth-first search to display path to target vertex
 class Graph
-  # attr_accessor :adj_list
-
   def initialize
     @vertex_list = []
     @adj_list = {}
@@ -23,7 +21,6 @@ class Graph
   end
 
   def add_edge(start, finish)
-    # binding.pry
     start_vertex = @vertex_list[Vertex.to_index(start)]
     finish_vertex = @vertex_list[Vertex.to_index(finish)]
     return false if @adj_list[start_vertex].include? finish_vertex
@@ -55,31 +52,31 @@ class Graph
       current = current_path.last
       @adj_list[current].each do |vertex|
         next if vertex.was_visited
-        temp_path = current_path.clone
-        temp_path << vertex
+
+        new_path = current_path.clone << vertex
         if vertex == target
           reset
-          return temp_path 
+          return new_path
         end
-        @queue << temp_path
+        @queue << new_path
         vertex.was_visited = true
       end
     end
     reset
-    "No path found."
+    'No path found.'
   end
 
   def display_adj_list
     @adj_list.each do |k, v|
-      print "#{k.to_s} => "
-      v.each { |vertex| print "#{vertex.to_s}, " }
+      print "#{k} => "
+      v.each { |vertex| print "#{vertex}, " }
       puts
     end
   end
 
   def display_vertex_list
-    print "Vertex list: "
-    @vertex_list.each { |vertex| print "#{vertex.to_s}, " }
+    print 'Vertex list: '
+    @vertex_list.each { |vertex| print "#{vertex}, " }
     puts "(#{@vertex_list.length} vertices)"
   end
 

@@ -9,7 +9,7 @@ class Board
 
   def initialize
     @graph = Graph.new
-    @graph.add_vertex([0,0])
+    @graph.add_vertex([0, 0])
     add_knight
   end
 
@@ -24,19 +24,16 @@ class Board
     puts "You made it in #{path.length - 1} moves! Here is your path:"
     path.each do |square|
       print square.to_s
-      print " --> " unless square == path.last
+      print ' --> ' unless square == path.last
     end
     puts
   end
 
   def add_knight(square = [0, 0])
     return if @graph.explored?(square)
-    @graph.explored(square)
 
-    moves = Knight.moves(square)
-    moves.reject! { |move| move[0] < 0 || move[0] > MAX ||
-                           move[1] < 0 || move[1] > MAX }
-    
+    @graph.explored(square)
+    moves = valid_moves(Knight.moves(square))
     moves.each do |move|
       @graph.add_vertex(move)
       @graph.add_edge(square, move)
@@ -58,5 +55,13 @@ class Board
 
   def convert_to_chess(coordinates)
     (coordinates[0] + 97).chr + (MAX + 1 - coordinates[1]).to_s
+  end
+
+  private
+
+  def valid_moves(moves)
+    moves.reject do |move|
+      move[0].negative? || move[0] > MAX || move[1].negative? || move[1] > MAX
+    end
   end
 end

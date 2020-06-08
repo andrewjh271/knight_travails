@@ -3,11 +3,16 @@
 # Class that models a knight's behavior
 class Knight
   def self.moves(arr)
-    row = arr[0]
-    column = arr[1]
-    [[row - 2, column + 1], [row - 1, column + 2],
-     [row + 1, column + 2], [row + 2, column + 1],
-     [row + 2, column - 1], [row + 1, column - 2],
-     [row - 1, column - 2], [row - 2, column - 1]]
+    column = arr[0]
+    row = arr[1]
+    moves = []
+    (-2..2).each do |i|
+      next if i.zero?
+
+      j = i.abs == 2 ? 1 : 2
+      moves << [column + i, row - j]
+      moves << [column + i, row + j]
+    end
+    moves
   end
 end

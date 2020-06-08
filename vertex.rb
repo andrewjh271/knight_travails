@@ -7,13 +7,13 @@ class Vertex
   BOARD_SIZE = 8
 
   def self.to_index(arr)
-    arr[0] + arr[1] * BOARD_SIZE
+    arr[0] * BOARD_SIZE + arr[1]
   end
-  
+
   def self.from_index(index)
-    [index % BOARD_SIZE, index / BOARD_SIZE]
+    [index / BOARD_SIZE, index % BOARD_SIZE]
   end
-  
+
   def initialize(coordinates)
     @coordinates = coordinates
     @was_visited = false
