@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Class that models a knight's behavior
-class Knight
+module Knight
   def self.moves(arr)
     column = arr[0]
     row = arr[1]
