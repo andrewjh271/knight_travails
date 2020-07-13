@@ -38,7 +38,7 @@ class Board
     s = path.length > 2 ? 's' : ''
     puts "You made it in #{path.length - 1} move#{s}! Here is your path:"
     path.each do |square|
-      print square.to_s
+      print square
       print ' --> ' unless square == path.last
     end
     puts
